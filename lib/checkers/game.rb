@@ -84,22 +84,22 @@ module Checkers
     end
 
     def is_move_valid?(player, from_cell_index, to_cell_index)
-      from_cell = @board[from_cell_index]
-      to_cell = @board[to_cell_index]
+      from_cell = @board.cells[from_cell_index]
+      to_cell = @board.cells[to_cell_index]
 
       if to_cell[:peice]
         #special logic if the cell
-        allowed_cols = [from_cell[:col] - 2,  from_cell[:col] + 2]
+        allowed_cols = [from_cell[:column] - 2,  from_cell[:column] + 2]
         allowed_row  = from_cell[:row] + 2
       else
         #it is a blank cell there are only two valid options
-        allowed_cols = [from_cell[:col] - 1,  from_cell[:col] + 1]
+        allowed_cols = [from_cell[:column] - 1,  from_cell[:column] + 1]
         allowed_row  = from_cell[:row] + 1
       end
 
       allowed_cols.delete_if {|col| col < 1 || col > 8}
 
-      allowed_cols.select {|col| col == to_cell[:col]}.count > 0 && allowed_row == to_cell[:row]
+      allowed_cols.select {|col| col == to_cell[:column]}.count > 0 && allowed_row == to_cell[:row]
     end
   end
 end
