@@ -99,9 +99,10 @@ module Checkers
 
       to_cell = @board.cells[to_cell_index]
       return if to_cell.nil?
+      return unless to_cell[:piece].nil?
       return unless to_cell[:color] == :dark
 
-      direction = if player.color == :dark
+      move_direction = if player.color == :dark
         :+
       else
         :-
@@ -110,17 +111,17 @@ module Checkers
       if to_cell[:peice]
         column_change = 2
         allowed_cols = [from_cell[:column] - 2,  from_cell[:column] + 2]
-        allowed_row  = from_cell[:row].send(direction, 2)
+        allowed_row  = from_cell[:row].send(move_direction, 2)
       else
         column_change = 1
         #it is a blank cell there are only two valid options
         allowed_cols = [from_cell[:column] - 1,  from_cell[:column] + 1]
-        allowed_row  = from_cell[:row].send(direction, 1)
+        allowed_row  = from_cell[:row].send(move_direction, 1)
       end
 
       allowed_cols.delete_if {|col| col < 1 || col > 8}
 
-      allowed_cols.select {|col| col == to_cell[:column]}.count > 0 && allowed_row == to_cell[:row] && to_cell[:piece].nil?
+      allowed_cols.select {|col| col == to_cell[:column]}.count > 0 && allowed_row == to_cell[:row]
     end
   end
 end
