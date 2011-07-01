@@ -54,15 +54,21 @@ describe Checkers::Game do
     end
   end
 
-  it "should allow a move to a dark empty cell" do
+  it "should properly validate the dark_player move to an empty cell" do
     game = Checkers::Game.new
     dark_player = game.players[:dark]
     game.is_move_valid?(dark_player, "c1:r3", "c2:r4").should == true
   end
 
+  it "should properly validate the light_player move to an empty cell" do
+    game = Checkers::Game.new
+    light_player = game.players[:light]
+    game.is_move_valid?(light_player, "c2:r8", "c1:r7").should == true
+  end
+
   it "should error when moving to an occupied cell" do
     game = Checkers::Game.new
     dark_player = game.players[:dark]
-    game.is_move_valid?(dark_player, "c1:r3", "c2:r4").should == true
+    game.is_move_valid?(dark_player, "c1:r1", "c2:r2").should == true
   end
 end
