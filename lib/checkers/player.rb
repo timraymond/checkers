@@ -6,6 +6,7 @@ module Checkers
     def initialize(color)
       @color = color
       @pieces = (1..12).inject([]) {|array| array << Piece.new(color)}
+      @captured_pieces = []
     end
   end
 end
