@@ -106,7 +106,7 @@ module Checkers
 
       allowed_cols.delete_if {|col| col < 1 || col > 8}
 
-      allowed_cols.select {|col| col == to_cell[:column]}.count > 0 && allowed_row == to_cell[:row]
+      allowed_cols.select {|col| col == to_cell[:column]}.count > 0 && allowed_row == to_cell[:row] && to_cell[:piece].nil?
     end
   end
 end
