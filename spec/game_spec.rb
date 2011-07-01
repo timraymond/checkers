@@ -71,4 +71,14 @@ describe Checkers::Game do
     dark_player = game.players[:dark]
     game.is_move_valid?(dark_player, "c1:r1", "c2:r2").should == false
   end
+
+  it "should make a move if the move is valid" do
+    game = Checkers::Game.new
+    dark_player = game.players[:dark]
+    game.is_move_valid?(dark_player, "c1:r3", "c2:r4").should     == true
+    game.make_move(dark_player, "c1:r3", "c2:r4").nil?.should_not == true
+
+    game.board.cells["c2:r4"][:piece].nil?.should_not == true
+    game.board.cells["c1:r3"][:piece].nil?.should     == true
+  end
 end
