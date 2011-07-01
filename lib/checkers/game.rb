@@ -97,6 +97,8 @@ module Checkers
       return if from_cell.nil?
       return if from_cell[:piece].nil?
 
+      return unless from_cell[:piece].color == player.color
+
       to_cell = @board.cells[to_cell_index]
       return if to_cell.nil?
       return unless to_cell[:piece].nil?

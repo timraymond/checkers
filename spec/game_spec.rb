@@ -81,4 +81,11 @@ describe Checkers::Game do
     game.board.cells["c2:r4"][:piece].nil?.should_not == true
     game.board.cells["c1:r3"][:piece].nil?.should     == true
   end
+
+  it "should not allow dark player to move light chips" do
+    game = Checkers::Game.new
+    dark_player = game.players[:dark]
+    game.is_move_valid?(dark_player, "c2:r6", "c1:r5").should_not == true
+    game.is_move_valid?(dark_player, "c1:r5", "c2:r6").should_not == true
+  end
 end
