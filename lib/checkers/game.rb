@@ -85,9 +85,11 @@ module Checkers
 
     def is_move_valid?(player, from_cell_index, to_cell_index)
       from_cell = @board.cells[from_cell_index]
+      return if from_cell.nil?
       return if from_cell[:piece].nil?
 
       to_cell = @board.cells[to_cell_index]
+      return if to_cell.nil?
       return unless to_cell[:color] == :dark
 
       direction = if player.color == :dark
