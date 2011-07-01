@@ -66,7 +66,7 @@ describe Checkers::Game do
     game.is_move_valid?(light_player, "c2:r6", "c1:r5").should == true
   end
 
-  it "should error when moving to an occupied cell" do
+  it "should not be valid to move to an occupied cell" do
     game = Checkers::Game.new
     dark_player = game.players[:dark]
     game.is_move_valid?(dark_player, "c1:r1", "c2:r2").should == false
