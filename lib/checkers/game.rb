@@ -87,14 +87,21 @@ module Checkers
       from_cell = @board.cells[from_cell_index]
       to_cell = @board.cells[to_cell_index]
 
-      if to_cell[:peice]
-        #special logic if the cell
-        allowed_cols = [from_cell[:column] - 2,  from_cell[:column] + 2]
-        allowed_row  = from_cell[:row] + 2
+      direction = if player.color == :dark
+        :+
       else
+        :-
+      end
+
+      if to_cell[:peice]
+        column_change = 2
+        allowed_cols = [from_cell[:column] - 2,  from_cell[:column] + 2]
+        allowed_row  = from_cell[:row].send(direction, 2)
+      else
+        column_change = 1
         #it is a blank cell there are only two valid options
         allowed_cols = [from_cell[:column] - 1,  from_cell[:column] + 1]
-        allowed_row  = from_cell[:row] + 1
+        allowed_row  = from_cell[:row].send(direction, 1)
       end
 
       allowed_cols.delete_if {|col| col < 1 || col > 8}
