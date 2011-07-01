@@ -63,7 +63,7 @@ describe Checkers::Game do
   it "should properly validate the light_player move to an empty cell" do
     game = Checkers::Game.new
     light_player = game.players[:light]
-    game.is_move_valid?(light_player, "c1:r6", "c2:r5").should == true
+    game.is_move_valid?(light_player, "c2:r6", "c1:r5").should == true
   end
 
   it "should error when moving to an occupied cell" do
