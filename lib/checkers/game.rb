@@ -88,6 +88,7 @@ module Checkers
       return if from_cell[:piece].nil?
 
       to_cell = @board.cells[to_cell_index]
+      return unless to_cell[:color] == :dark
 
       direction = if player.color == :dark
         :+
