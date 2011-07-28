@@ -104,21 +104,33 @@ module Checkers
       return unless to_cell[:piece].nil?
       return unless to_cell[:color] == :dark
 
-      move_direction = if player.color == :dark
+      y_direction = if player.color == :dark
         :+
       else
         :-
       end
 
-      if to_cell[:peice]
-        column_change = 2
-        allowed_cols = [from_cell[:column] - 2,  from_cell[:column] + 2]
-        allowed_row  = from_cell[:row].send(move_direction, 2)
+      x_direction = if to_cell[:column] < from_cell[:column]
+        :-
+      else
+        :+
+      end
+
+      allowed_cols = []
+      allowed_row = nil
+
+      if (to_cell[:column] - from_cell[:column]).abs == 2 && (to_cell[:row] - from_cell[:row]).abs == 2
+        #capture
+        jumped_piece = @board.cells["c#{from_cell[:column].send(x_direction, 1)}:r#{from_cell[:row].send(y_direction, 1)}"][:piece]
+        if jumped_piece && jumped_piece.color != player.color
+          allowed_cols << from_cell[:column].send(x_direction, 2)
+          allowed_row = from_cell[:row].send(y_direction, 2)
+        end
       else
         column_change = 1
         #it is a blank cell there are only two valid options
         allowed_cols = [from_cell[:column] - 1,  from_cell[:column] + 1]
-        allowed_row  = from_cell[:row].send(move_direction, 1)
+        allowed_row  = from_cell[:row].send(y_direction, 1)
       end
 
       allowed_cols.delete_if {|col| col < 1 || col > 8}
