@@ -66,6 +66,12 @@ describe Checkers::Game do
     game.is_move_valid?(light_player, "c2:r6", "c1:r5").should == true
   end
 
+  it "should not be valid to move from an unoccupied cell" do
+    game = Checkers::Game.new
+    dark_player = game.players[:dark]
+    game.is_move_valid?(dark_player, "c1:r2", "c2:r3").should_not == true
+  end
+
   it "should not be valid to move to an occupied cell" do
     game = Checkers::Game.new
     dark_player = game.players[:dark]
@@ -75,11 +81,10 @@ describe Checkers::Game do
   it "should make a move if the move is valid" do
     game = Checkers::Game.new
     dark_player = game.players[:dark]
-    game.is_move_valid?(dark_player, "c1:r3", "c2:r4").should     == true
-    game.make_move(dark_player, "c1:r3", "c2:r4").nil?.should_not == true
+    game.make_move(dark_player, "c1:r3", "c2:r4").should_not be_nil
 
-    game.board.cells["c2:r4"][:piece].nil?.should_not == true
-    game.board.cells["c1:r3"][:piece].nil?.should     == true
+    game.board.cells["c2:r4"][:piece].should_not be_nil
+    game.board.cells["c1:r3"][:piece].should be_nil
   end
 
   it "should not allow dark player to move light chips" do
@@ -87,5 +92,32 @@ describe Checkers::Game do
     dark_player = game.players[:dark]
     game.is_move_valid?(dark_player, "c2:r6", "c1:r5").should_not == true
     game.is_move_valid?(dark_player, "c1:r5", "c2:r6").should_not == true
+  end
+
+  it "should be valid for dark player to capture a light piece" do
+    game = Checkers::Game.new
+    dark_player = game.players[:dark]
+    game.board.cells["c2:r4"][:piece] = game.players[:light].pieces[0]
+    game.is_move_valid?(dark_player, "c1:r3", "c3:r5").should be_true
+  end
+
+  it "should be valid for light player to capture a dark piece to the right" do
+    game = Checkers::Game.new
+    light_player = game.players[:light]
+    game.board.cells["c5:r5"][:piece] = game.players[:dark].pieces[0]
+    game.is_move_valid?(light_player, "c4:r6", "c6:r4").should be_true
+  end
+
+  it "should be valid for light player to capture a dark piece to the left" do
+    game = Checkers::Game.new
+    light_player = game.players[:light]
+    game.board.cells["c5:r5"][:piece] = game.players[:dark].pieces[0]
+    game.is_move_valid?(light_player, "c6:r6", "c4:r4").should be_true
+  end
+
+  it "should not be valid for dark player to capture an empty cell" do
+    game = Checkers::Game.new
+    dark_player = game.players[:dark]
+    game.is_move_valid?(dark_player, "c1:r3", "c3:r5").should_not be_true
   end
 end
