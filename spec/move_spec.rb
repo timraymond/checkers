@@ -16,7 +16,7 @@ describe Checkers::Move do
 
   it "should not be valid to move from an unoccupied cell" do
     game = Checkers::Game.new
-    dark_player = game.players[:dark]
+    light_player = game.players[:light]
     move = game.move(light_player, "c1:r2", "c2:r3")
     move.valid?.should_not == true
   end

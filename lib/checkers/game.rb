@@ -137,5 +137,9 @@ module Checkers
 
       allowed_cols.select {|col| col == to_cell[:column]}.count > 0 && allowed_row == to_cell[:row]
     end
+
+    def move(player, from_cell_index, to_cell_index)
+      Checkers::Move.new(@board, player, from_cell_index, to_cell_index)
+    end
   end
 end
