@@ -1,64 +1,49 @@
 module Checkers
   class Move
-    def initialize(board, player, from_cell_index, to_cell_index)
+    def initialize(board, src_idx, dest_idx)
       @board = board
-      @player = player
-      @from_cell_index = from_cell_index
-      @to_cell_index = to_cell_index
-      @from_cell = board.cells[from_cell_index]
-      @to_cell = board.cells[to_cell_index]
+      @src_idx = src_idx
+      @dest_idx = dest_idx
     end
 
     def valid?
-      @from_cell = @board.cells[@from_cell_index]
-      return if @from_cell.nil?
-      return if @from_cell[:piece].nil?
+      return nil if @board[@src_idx].nil?
+      valid_moves = 
+        [true, false, false, false]
 
-      return unless @from_cell[:piece].color == @player.color
+      neighbor = ordinalize(@src_idx, @dest_idx)
 
-      @to_cell = @board.cells[@to_cell_index]
-      return if @to_cell.nil?
-      return unless @to_cell[:piece].nil?
-      return unless @to_cell[:color] == :dark
-
-      y_direction = if @player.color == :dark
-        :+
-      else
-        :-
-      end
-
-      x_direction = if @to_cell[:column] < @from_cell[:column]
-        :-
-      else
-        :+
-      end
-
-      allowed_cols = []
-      allowed_row = nil
-
-      if (@to_cell[:column] - @from_cell[:column]).abs == 2 && (@to_cell[:row] - @from_cell[:row]).abs == 2
-        #capture
-        jumped_piece = @board.cells["c#{@from_cell[:column].send(x_direction, 1)}:r#{@from_cell[:row].send(y_direction, 1)}"][:piece]
-        if jumped_piece && jumped_piece.color != @player.color
-          allowed_cols << @from_cell[:column].send(x_direction, 2)
-          allowed_row = @from_cell[:row].send(y_direction, 2)
-        end
-      else
-        column_change = 1
-        #it is a blank cell there are only two valid options
-        allowed_cols = [@from_cell[:column] - 1,  @from_cell[:column] + 1]
-        allowed_row  = @from_cell[:row].send(y_direction, 1)
-      end
-
-      allowed_cols.delete_if {|col| col < 1 || col > 8}
-
-      allowed_cols.select {|col| col == @to_cell[:column]}.count > 0 && allowed_row == @to_cell[:row]
+      valid_moves[neighbor] && @board[@src_idx].moves.map { |dir| @board.neighbors(@src_idx)[dir] }.include?(@dest_idx)
     end
 
     def execute
       return unless valid?
-      @to_cell[:piece], @from_cell[:piece] = @from_cell[:piece], nil
-      @to_cell
+      @board[@dest_idx] = @board[@src_idx]
+      @board[@src_idx]  = nil
+      @board
+    end
+
+    def revert
+      return unless valid?
+      @board[@dest_idx], @board[@src_idx] = nil, @board[@dest_idx]
+      @board
+    end
+
+    def owner
+      @board[@src_idx].color
+    end
+
+    def to_s
+      "#{@src_idx}x#{@dest_idx}"
+    end
+
+  private
+    
+    def ordinalize(reference, subject)
+      return 3 if subject.nil? # Invalid space
+      return 0 if @board[subject].nil?
+      return 1 if @board[reference].color == @board[subject].color
+      return 2 if @board[reference].color != @board[subject].color
     end
   end
 end

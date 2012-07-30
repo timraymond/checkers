@@ -1,49 +1,28 @@
 require File.expand_path('../../lib/checkers', __FILE__)
 
 describe Checkers::Move do
-  it "should properly validate the dark_player move to an empty cell" do
+
+  it "should have an owner based on the source piece" do
     game = Checkers::Game.new
-    dark_player = game.players[:dark]
-    move = game.move(dark_player, "c1:r3", "c2:r4")
-    move.valid?.should == true
-  end
-  it "should properly validate the light_player move to an empty cell" do
-    game = Checkers::Game.new
-    light_player = game.players[:light]
-    move = game.move(light_player, "c2:r6", "c1:r5")
-    move.valid?.should == true
+    board = game.instance_eval { @board }
+    move = Checkers::Move.new(board, 12, 16)
+    move.owner.should == :black
   end
 
-  it "should not be valid to move from an unoccupied cell" do
+  it "should properly execute a valid move" do
     game = Checkers::Game.new
-    light_player = game.players[:light]
-    move = game.move(light_player, "c1:r2", "c2:r3")
-    move.valid?.should_not == true
+    board = game.instance_eval { @board }
+    move = Checkers::Move.new(board, 12, 16)
+
+    expected_board = "bbbbbbbbbbbxxxxbxxxxwwwwwwwwwwww"
+    move.execute.to_s.should == expected_board
   end
 
-  it "should not be valid to move to an occupied cell" do
+  it "should have a PDN text representation" do
     game = Checkers::Game.new
-    dark_player = game.players[:dark]
-    move = game.move(dark_player, "c1:r1", "c2:r2")
-    move.valid?.should_not == true
-  end
+    board = game.instance_eval { @board }
+    move = Checkers::Move.new(board, 12, 16)
 
-  it "should make a move if the move is valid" do
-    game = Checkers::Game.new
-    dark_player = game.players[:dark]
-    move = game.move(dark_player, "c1:r3", "c2:r4")
-    move.execute.should_not be_nil
-
-    game.board.cells["c2:r4"][:piece].should_not be_nil
-    game.board.cells["c1:r3"][:piece].should be_nil
-  end
-
-  it "should not allow dark player to move light chips" do
-    game = Checkers::Game.new
-    dark_player = game.players[:dark]
-    move = game.move(dark_player, "c2:r6", "c1:r5")
-    move.valid?.should_not == true
-    move = game.move(dark_player, "c1:r5", "c2:r6")
-    move.valid?.should_not == true
+    move.to_s.should == "12x16"
   end
 end
