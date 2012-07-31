@@ -8,4 +8,5 @@ describe Checkers::Piece do
     white.moves.should == [:sw, :se]
     black.moves.should == [:ne, :nw]
   end
+
 end

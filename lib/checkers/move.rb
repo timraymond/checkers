@@ -1,9 +1,14 @@
 module Checkers
   class Move
+    attr_reader :src_idx, :dest_idx
+    alias src   src_idx
+    alias dest  dest_idx
+
     def initialize(board, src_idx, dest_idx)
       @board = board
       @src_idx = src_idx
       @dest_idx = dest_idx
+      @owner = board[src_idx].color
     end
 
     def valid?
@@ -30,7 +35,7 @@ module Checkers
     end
 
     def owner
-      @board[@src_idx].color
+      @owner
     end
 
     def to_s

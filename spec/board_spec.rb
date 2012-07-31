@@ -7,6 +7,16 @@ describe Checkers::Board do
     cells.size.should == 32
   end
 
+  it "should have 12 black pieces" do
+    board = Checkers::Board.new
+    board.count_pieces(:black).should == 12
+  end
+
+  it "should have 12 white pieces" do
+    board = Checkers::Board.new
+    board.count_pieces(:white).should == 12
+  end
+
   it "should have a text representation" do
     board = Checkers::Board.new
     board.to_s.should == "bbbbbbbbbbbbxxxxxxxxwwwwwwwwwwww"
@@ -28,6 +38,11 @@ describe Checkers::Board do
     board = Checkers::Board.new
     board[1] = Checkers::Piece.new(:white)
     board[1].color.should == :white
+  end
+
+  it "should return the locations of pieces of a particular color" do
+    board = Checkers::Board.new
+    board.pieces(:black).inject(:+).should == (12*13)/2
   end
 
   describe "neighbors" do

@@ -23,6 +23,13 @@ module Checkers
     end
 
     def [](idx)
+      # NilPieces have a nil color
+      NilClass.class_eval do
+        def color
+          nil
+        end
+      end
+
       return nil if idx > 32 || idx < 1
       @cells[idx-1]
     end
@@ -35,10 +42,26 @@ module Checkers
       Board.new(self.to_s) # Deep copy
     end
 
+    def pieces(color)
+      # returns the locations of the pieces of a particular color
+      locations = []
+      @cells.each_with_index do |piece, idx|
+        if piece.nil?
+          # nop
+        elsif piece.color == color
+          locations << idx+1
+        else
+          # nop
+        end
+      end
+      locations
+    end
+
     def count_pieces(color)
       @cells.inject(0) do |count, cell|
-        return count if cell.nil?
-        if cell.color == color
+        if cell.nil?
+          count
+        elsif cell.color == color
           count + 1
         else
           count
