@@ -2,7 +2,7 @@ require File.expand_path('../../lib/checkers', __FILE__)
 
 describe Checkers::Jump do
   before do
-    @game = Checkers::Game.from_text("bbbbbbbbbbbbxxxwxxxwwwwwwwwwww", "b")
+    @game = Checkers::Game.from_text("bbbbbbbbbbbbxxxwxxxwwwwwwwwwww:b")
 
     # Setup classes of possible jumps
     @valid_jump   = @game.instance_eval { build_jump(12, 16, 19) }

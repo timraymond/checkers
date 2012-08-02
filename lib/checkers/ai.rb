@@ -1,8 +1,7 @@
 module Checkers
   class AI
     def initialize(game_state)
-      game_opts = game_state.split ":"
-      @engine = Checkers::Game.from_text(game_opts.shift, game_opts.shift)
+      @engine = Checkers::Game.from_text(game_state)
       @my_color = @engine.current_player
     end
 

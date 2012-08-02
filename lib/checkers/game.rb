@@ -9,7 +9,11 @@ module Checkers
       @moves = []
     end
 
-    def self.from_text(ctp_board, ctp_player)
+    def self.from_text(ctp_game_text)
+      game_opts = ctp_game_text.split ':'
+      ctp_board = game_opts.shift
+      ctp_player = game_opts.shift
+
       game = self.new
       game.instance_eval { 
         @board = Board.new(ctp_board)
@@ -64,6 +68,10 @@ module Checkers
       @board.count_pieces(:black) == 0 || @board.count_pieces(:white) == 0
     end
 
+    def to_s
+      player = if @current_player == :black then 'b' else 'w' end
+      [@board.to_s, player].join ':'
+    end
   private
 
     def move_factory(src_idx, neighbor1, neighbor2)
