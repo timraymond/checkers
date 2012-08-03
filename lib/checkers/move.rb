@@ -1,6 +1,8 @@
 module Checkers
   class Move
+    include Comparable
     attr_reader :src_idx, :dest_idx
+    attr_accessor :rank
     alias src   src_idx
     alias dest  dest_idx
 
@@ -29,8 +31,8 @@ module Checkers
     end
 
     def revert
-      return unless valid?
-      @board[@dest_idx], @board[@src_idx] = nil, @board[@dest_idx]
+      @board[@src_idx] = @board[@dest_idx]
+      @board[@dest_idx] = nil
       @board
     end
 
@@ -42,6 +44,9 @@ module Checkers
       "#{@src_idx}x#{@dest_idx}"
     end
 
+    def <=>(other)
+      rank <=> other.rank
+    end
   private
     
     def ordinalize(reference, subject)

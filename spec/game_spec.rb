@@ -47,4 +47,23 @@ describe Checkers::Game do
     game = Checkers::Game.from_text("bbbbbbbbbbbbxxxxxxxxwwwwwwwwwwww:b")
     game.to_s.should == "bbbbbbbbbbbbxxxxxxxxwwwwwwwwwwww:b"
   end
+
+  # Bugfixes
+  
+  it "should switch player upon moving into a jump position" do
+    game = Checkers::Game.from_text("bbbbxxbbxbxxbbxbbxxxxxxwwwwwwwww:w")
+    move = game.options.select { |move| move.dest == 20 }
+    game.commit_move(move.first)
+    game.current_player.should == :black
+  end
+
+  describe "rollback" do
+    it "should restore the game to its original state" do
+      game = Checkers::Game.new
+      expected = game.to_s
+      game.commit_move(game.options[0])
+      game.rollback
+      game.to_s.should == expected
+    end
+  end
 end

@@ -1,5 +1,7 @@
 module Checkers
   class Jump < Move
+    include Comparable
+
     def initialize(board, src_idx, jump_idx, dest_idx)
       @jump_idx = jump_idx
       super(board, src_idx, dest_idx)
@@ -29,9 +31,15 @@ module Checkers
     end
 
     def revert
+      @board[@src_idx] = @board[@dest_idx]
+      @board[@dest_idx] = nil
       @board[@jump_idx] = @jumped_piece
+      @board
     end
 
+    def <=>(other)
+      rank <=> other.rank
+    end
   private
 
     def forms_chain(cell1, cell2, cell3)

@@ -1,6 +1,6 @@
 module Checkers
   class Game
-    attr_reader :current_player, :players, :board
+    attr_reader :current_player, :players, :board, :moves
 
     def initialize
       @players = [:black, :white]
@@ -34,8 +34,14 @@ module Checkers
       @moves << move
       @board = move.execute
       coronate_pieces()
-      swap_players() unless jumps_available(move.dest)
+      swap_players() unless jumps_available(move.dest) && move.class == Checkers::Jump
       @current_player
+    end
+
+    def rollback
+      last_move = @moves.pop
+      @board = last_move.revert
+      @current_player = last_move.owner
     end
 
     # Returns available moves or jumps for current_player
@@ -111,8 +117,8 @@ module Checkers
     end
 
     def jumps_available(location)
-      jumps = options.delete_if { |move| move.class != Checkers::Jump }
-      jumps.delete_if { |jump| jump.src != location }.size > 0
+      jumps = options.select { |move| move.class == Checkers::Jump }
+      jumps.select { |jump| jump.src == location }.size > 0
     end
   end
 end
