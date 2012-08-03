@@ -1,10 +1,20 @@
 module Checkers
   class AI
-    def initialize(game_state)
+    def initialize(game_state, opts = {})
       @engine = game_state
       @my_color = @engine.current_player
-      @@max_depth = 3
-      @@debug = false
+      @@max_depth = 4
+
+      @@alpha_beta = if opts.has_key?(:alpha_beta)
+                       opts[:alpha_beta]
+                     else
+                       false
+                     end
+      @@debug = if opts.has_key?(:debug)
+                  opts[:debug]
+                else
+                  false
+                end
     end
 
     def evaluate(board = @engine.board)
@@ -34,11 +44,35 @@ module Checkers
       ranked_options.max # Return the best move
     end
 
+    def abrank(move, alpha, beta)
+      @engine.commit_move(move)
+      if @engine.moves.count == @@max_depth
+        result = evaluate()
+        return result
+      else
+        @engine.options.each do |move|
+          score = -1 * abrank(move, (beta * -1), (alpha * -1))
+          @engine.rollback
+          if score >= beta
+            return beta;
+          elsif score > alpha
+            alpha = score
+          end
+        end
+      end
+
+      return alpha
+    end
     def random_choice
       @engine.options.sample
     end
 
     def rank(move)
+      if @@alpha_beta
+        move.rank = abrank(move, -4000, 4000)
+        return move
+      end
+
       if @engine.moves.count == @@max_depth
         move.rank = evaluate(move.execute)
       else
