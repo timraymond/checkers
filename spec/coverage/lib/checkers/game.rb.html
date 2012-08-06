@@ -1,0 +1,1087 @@
+<html>
+  <head>
+    <title>lib/checkers/game.rb</title>
+    
+    <link href="../../report.css?0.10940076085270911" media="screen" rel="stylesheet" type="text/css" />
+    <script src='../../jquery.js?0.32124398619894545'></script>
+    <script>
+      $(function() {
+
+        $('#toggle_test_file').click(function(e) {
+          e.preventDefault();
+          if ($('#main_file').hasClass('side_by_side')) {
+            $('#main_file').removeClass('side_by_side');
+          } else {
+            $('#main_file').addClass('side_by_side');
+          }
+        
+          $('#test_file').toggle();
+        });
+
+        $('#test_file').hide();
+        
+        function cleanString(str) {
+          return $.trim(str.replace(/<[^(<|>)]+>/gi, ''));
+        }
+        
+        $('.line_number').hover(function() {
+          $(this).attr('title', 'Line: ' + cleanString($(this).html()));
+        });
+        
+        $('.hit_number').hover(function() {
+          $(this).attr('title', 'Execution Count: ' + cleanString($(this).html()));
+        });
+        
+        $('.code_line').hover(function() {
+          $(this).attr('title', cleanString($(this).html()));
+        });
+        
+      });
+    </script>
+  </head>
+  <body>
+    <h1><a href="../../index.html">Coverage Report</a></h1>
+    
+    <table cellpadding='0' cellspacing='1'>
+      <tr class='header'>
+        <th>File</th>
+        <th>Lines</th>
+        <th>Lines Of Code</th>
+        <th>Untested Lines of Code</th>
+        <th>Tested %</th>
+      </tr>
+      <tr valign='top'>
+        <td>
+          lib/checkers/game.rb
+          
+        </td>
+        <td>124</td>
+        <td>76</td>
+        <td>3</td>
+        <td>96.1%</td>
+      </tr>
+    </table>
+
+    <div>&nbsp;</div>
+    
+    <table cellpadding='0' cellspacing='1'>
+      <tr>
+        <th>Legend</th>
+      </tr>
+      <tr>
+        <td class='hit'>This line was executed.</td>
+      </tr>
+      <tr>
+        <td class='miss'>This line was not executed!</td>
+      </tr>
+      <tr>
+        <td class='never'>This line doesn't matter.</td>
+      </tr>
+    </table>
+    
+    <div>&nbsp;</div>
+
+    <div id='content'>
+      <div id='main_file'>
+        <table id='main'>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>1</td>
+              <td class='code_line'>
+                <pre>module Checkers</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>2</td>
+              <td class='code_line'>
+                <pre>  class Game</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>3</td>
+              <td class='code_line'>
+                <pre>    attr_reader :current_player, :players, :board, :moves</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>4</td>
+              <td class='code_line'>
+                <pre></pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>5</td>
+              <td class='code_line'>
+                <pre>    def initialize</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>6</td>
+              <td class='code_line'>
+                <pre>      @players = [:black, :white]</pre>
+              </td>
+              <td class='hit_number'>34</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>7</td>
+              <td class='code_line'>
+                <pre>      @board = Board.new</pre>
+              </td>
+              <td class='hit_number'>34</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>8</td>
+              <td class='code_line'>
+                <pre>      @current_player = @players.sample # Random starting player</pre>
+              </td>
+              <td class='hit_number'>34</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>9</td>
+              <td class='code_line'>
+                <pre>      @moves = []</pre>
+              </td>
+              <td class='hit_number'>34</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>10</td>
+              <td class='code_line'>
+                <pre>    end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>11</td>
+              <td class='code_line'>
+                <pre></pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>12</td>
+              <td class='code_line'>
+                <pre>    def self.from_text(ctp_game_text)</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>13</td>
+              <td class='code_line'>
+                <pre>      game_opts = ctp_game_text.split ':'</pre>
+              </td>
+              <td class='hit_number'>23</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>14</td>
+              <td class='code_line'>
+                <pre>      ctp_board = game_opts.shift</pre>
+              </td>
+              <td class='hit_number'>23</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>15</td>
+              <td class='code_line'>
+                <pre>      ctp_player = game_opts.shift</pre>
+              </td>
+              <td class='hit_number'>23</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>16</td>
+              <td class='code_line'>
+                <pre></pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>17</td>
+              <td class='code_line'>
+                <pre>      game = self.new</pre>
+              </td>
+              <td class='hit_number'>23</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>18</td>
+              <td class='code_line'>
+                <pre>      game.instance_eval { </pre>
+              </td>
+              <td class='hit_number'>23</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>19</td>
+              <td class='code_line'>
+                <pre>        @board = Board.new(ctp_board)</pre>
+              </td>
+              <td class='hit_number'>23</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>20</td>
+              <td class='code_line'>
+                <pre>        @current_player = if ctp_player == 'b'</pre>
+              </td>
+              <td class='hit_number'>23</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>21</td>
+              <td class='code_line'>
+                <pre>                            :black</pre>
+              </td>
+              <td class='hit_number'>16</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>22</td>
+              <td class='code_line'>
+                <pre>                          elsif ctp_player == 'w'</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>23</td>
+              <td class='code_line'>
+                <pre>                            :white</pre>
+              </td>
+              <td class='hit_number'>7</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>24</td>
+              <td class='code_line'>
+                <pre>                          else</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="miss" data-hits='#{cov}'"">
+              <td class='line_number'>25</td>
+              <td class='code_line'>
+                <pre>                            raise "CTP Parse Error"</pre>
+              </td>
+              <td class='hit_number'>0</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>26</td>
+              <td class='code_line'>
+                <pre>                          end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>27</td>
+              <td class='code_line'>
+                <pre>      }</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>28</td>
+              <td class='code_line'>
+                <pre>      game</pre>
+              </td>
+              <td class='hit_number'>23</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>29</td>
+              <td class='code_line'>
+                <pre>    end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>30</td>
+              <td class='code_line'>
+                <pre></pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>31</td>
+              <td class='code_line'>
+                <pre>    def commit_move(move)</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>32</td>
+              <td class='code_line'>
+                <pre>      return nil unless move.valid?</pre>
+              </td>
+              <td class='hit_number'>5</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>33</td>
+              <td class='code_line'>
+                <pre>      return nil if move.owner != @current_player</pre>
+              </td>
+              <td class='hit_number'>5</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>34</td>
+              <td class='code_line'>
+                <pre>      @moves << move</pre>
+              </td>
+              <td class='hit_number'>5</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>35</td>
+              <td class='code_line'>
+                <pre>      @board = move.execute</pre>
+              </td>
+              <td class='hit_number'>5</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>36</td>
+              <td class='code_line'>
+                <pre>      coronate_pieces()</pre>
+              </td>
+              <td class='hit_number'>5</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>37</td>
+              <td class='code_line'>
+                <pre>      swap_players() unless jumps_available(move.dest) && move.class == Checkers::Jump</pre>
+              </td>
+              <td class='hit_number'>5</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>38</td>
+              <td class='code_line'>
+                <pre>      @current_player</pre>
+              </td>
+              <td class='hit_number'>5</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>39</td>
+              <td class='code_line'>
+                <pre>    end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>40</td>
+              <td class='code_line'>
+                <pre></pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>41</td>
+              <td class='code_line'>
+                <pre>    def rollback</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>42</td>
+              <td class='code_line'>
+                <pre>      last_move = @moves.pop</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>43</td>
+              <td class='code_line'>
+                <pre>      @board = last_move.revert</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>44</td>
+              <td class='code_line'>
+                <pre>      @current_player = last_move.owner</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>45</td>
+              <td class='code_line'>
+                <pre>    end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>46</td>
+              <td class='code_line'>
+                <pre></pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>47</td>
+              <td class='code_line'>
+                <pre>    # Returns available moves or jumps for current_player</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>48</td>
+              <td class='code_line'>
+                <pre>    def options</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>49</td>
+              <td class='code_line'>
+                <pre>      pieces = @board.pieces(@current_player)</pre>
+              </td>
+              <td class='hit_number'>13</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>50</td>
+              <td class='code_line'>
+                <pre>      moves = []</pre>
+              </td>
+              <td class='hit_number'>13</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>51</td>
+              <td class='code_line'>
+                <pre>      pieces.each do |location|</pre>
+              </td>
+              <td class='hit_number'>13</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>52</td>
+              <td class='code_line'>
+                <pre>        piece = @board[location]</pre>
+              </td>
+              <td class='hit_number'>128</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>53</td>
+              <td class='code_line'>
+                <pre>        piece.moves.each do |direction|</pre>
+              </td>
+              <td class='hit_number'>128</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>54</td>
+              <td class='code_line'>
+                <pre>          neighbor1 = @board.neighbors(location)[direction] if @board.neighbors(location)</pre>
+              </td>
+              <td class='hit_number'>258</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>55</td>
+              <td class='code_line'>
+                <pre>          neighbor2 = @board.neighbors(neighbor1)[direction] if @board.neighbors(neighbor1)</pre>
+              </td>
+              <td class='hit_number'>258</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>56</td>
+              <td class='code_line'>
+                <pre>          moves << move_factory(location, neighbor1, neighbor2)</pre>
+              </td>
+              <td class='hit_number'>258</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>57</td>
+              <td class='code_line'>
+                <pre>        end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>58</td>
+              <td class='code_line'>
+                <pre>      end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>59</td>
+              <td class='code_line'>
+                <pre>      moves.delete_if(&:nil?)</pre>
+              </td>
+              <td class='hit_number'>13</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>60</td>
+              <td class='code_line'>
+                <pre></pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>61</td>
+              <td class='code_line'>
+                <pre>      if moves.map(&:class).include?(Checkers::Jump)</pre>
+              </td>
+              <td class='hit_number'>13</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>62</td>
+              <td class='code_line'>
+                <pre>        moves.delete_if { |move| move.class == Checkers::Move }</pre>
+              </td>
+              <td class='hit_number'>60</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>63</td>
+              <td class='code_line'>
+                <pre>        unless @moves.empty? || @current_player != @moves.last.owner</pre>
+              </td>
+              <td class='hit_number'>7</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>64</td>
+              <td class='code_line'>
+                <pre>          # There are still jumps leftover</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>65</td>
+              <td class='code_line'>
+                <pre>          moves.keep_if { |jump| jump.src == @moves.last.dest }</pre>
+              </td>
+              <td class='hit_number'>11</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>66</td>
+              <td class='code_line'>
+                <pre>        end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>67</td>
+              <td class='code_line'>
+                <pre>      end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>68</td>
+              <td class='code_line'>
+                <pre>      </pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>69</td>
+              <td class='code_line'>
+                <pre>      moves</pre>
+              </td>
+              <td class='hit_number'>13</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>70</td>
+              <td class='code_line'>
+                <pre>    end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>71</td>
+              <td class='code_line'>
+                <pre></pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>72</td>
+              <td class='code_line'>
+                <pre>    def over?</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>73</td>
+              <td class='code_line'>
+                <pre>      # Game is over when one player has no pieces</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>74</td>
+              <td class='code_line'>
+                <pre>      @board.count_pieces(:black) == 0 || @board.count_pieces(:white) == 0</pre>
+              </td>
+              <td class='hit_number'>2</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>75</td>
+              <td class='code_line'>
+                <pre>    end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>76</td>
+              <td class='code_line'>
+                <pre></pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>77</td>
+              <td class='code_line'>
+                <pre>    def to_s</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>78</td>
+              <td class='code_line'>
+                <pre>      player = if @current_player == :black then 'b' else 'w' end</pre>
+              </td>
+              <td class='hit_number'>3</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>79</td>
+              <td class='code_line'>
+                <pre>      [@board.to_s, player].join ':'</pre>
+              </td>
+              <td class='hit_number'>3</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>80</td>
+              <td class='code_line'>
+                <pre>    end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>81</td>
+              <td class='code_line'>
+                <pre>  private</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>82</td>
+              <td class='code_line'>
+                <pre></pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>83</td>
+              <td class='code_line'>
+                <pre>    def move_factory(src_idx, neighbor1, neighbor2)</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>84</td>
+              <td class='code_line'>
+                <pre>      move = build_jump(src_idx, neighbor1, neighbor2)</pre>
+              </td>
+              <td class='hit_number'>258</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>85</td>
+              <td class='code_line'>
+                <pre>      move = build_move(src_idx, neighbor1) unless move.valid?</pre>
+              </td>
+              <td class='hit_number'>258</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>86</td>
+              <td class='code_line'>
+                <pre>      move = nil unless move.valid?</pre>
+              </td>
+              <td class='hit_number'>258</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>87</td>
+              <td class='code_line'>
+                <pre>      move</pre>
+              </td>
+              <td class='hit_number'>258</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>88</td>
+              <td class='code_line'>
+                <pre>    end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>89</td>
+              <td class='code_line'>
+                <pre></pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>90</td>
+              <td class='code_line'>
+                <pre>    def swap_players</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>91</td>
+              <td class='code_line'>
+                <pre>      @current_player = if @current_player == :white</pre>
+              </td>
+              <td class='hit_number'>3</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>92</td>
+              <td class='code_line'>
+                <pre>                          :black</pre>
+              </td>
+              <td class='hit_number'>3</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>93</td>
+              <td class='code_line'>
+                <pre>                        else</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="miss" data-hits='#{cov}'"">
+              <td class='line_number'>94</td>
+              <td class='code_line'>
+                <pre>                          :white</pre>
+              </td>
+              <td class='hit_number'>0</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>95</td>
+              <td class='code_line'>
+                <pre>                        end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>96</td>
+              <td class='code_line'>
+                <pre>    end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>97</td>
+              <td class='code_line'>
+                <pre></pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>98</td>
+              <td class='code_line'>
+                <pre>    def build_move(src_idx, dest_idx)</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>99</td>
+              <td class='code_line'>
+                <pre>      Checkers::Move.new(@board.clone, src_idx, dest_idx)</pre>
+              </td>
+              <td class='hit_number'>247</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>100</td>
+              <td class='code_line'>
+                <pre>    end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>101</td>
+              <td class='code_line'>
+                <pre></pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>102</td>
+              <td class='code_line'>
+                <pre>    def build_jump(src_idx, jump_idx, dest_idx)</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>103</td>
+              <td class='code_line'>
+                <pre>      Checkers::Jump.new(@board.clone, src_idx, jump_idx, dest_idx)</pre>
+              </td>
+              <td class='hit_number'>276</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>104</td>
+              <td class='code_line'>
+                <pre>    end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>105</td>
+              <td class='code_line'>
+                <pre></pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>106</td>
+              <td class='code_line'>
+                <pre>    def coronate_pieces</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>107</td>
+              <td class='code_line'>
+                <pre>      [1, 2, 3, 4].each do |back_cell|</pre>
+              </td>
+              <td class='hit_number'>5</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>108</td>
+              <td class='code_line'>
+                <pre>        if @board[back_cell].color == :white</pre>
+              </td>
+              <td class='hit_number'>20</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>109</td>
+              <td class='code_line'>
+                <pre>          @board[back_cell] = Checkers::King.new(:white)</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>110</td>
+              <td class='code_line'>
+                <pre>        end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>111</td>
+              <td class='code_line'>
+                <pre>      end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>112</td>
+              <td class='code_line'>
+                <pre>      [32, 31, 30, 29].each do |back_cell|</pre>
+              </td>
+              <td class='hit_number'>5</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>113</td>
+              <td class='code_line'>
+                <pre>        if @board[back_cell].color == :black</pre>
+              </td>
+              <td class='hit_number'>20</td>
+            </tr>
+          
+            <tr class="miss" data-hits='#{cov}'"">
+              <td class='line_number'>114</td>
+              <td class='code_line'>
+                <pre>          @board[back_cell] = Checkers::King.new(:black)</pre>
+              </td>
+              <td class='hit_number'>0</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>115</td>
+              <td class='code_line'>
+                <pre>        end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>116</td>
+              <td class='code_line'>
+                <pre>      end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>117</td>
+              <td class='code_line'>
+                <pre>    end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>118</td>
+              <td class='code_line'>
+                <pre></pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>119</td>
+              <td class='code_line'>
+                <pre>    def jumps_available(location)</pre>
+              </td>
+              <td class='hit_number'>1</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>120</td>
+              <td class='code_line'>
+                <pre>      jumps = options.select { |move| move.class == Checkers::Jump }</pre>
+              </td>
+              <td class='hit_number'>18</td>
+            </tr>
+          
+            <tr class="hit" data-hits='#{cov}'"">
+              <td class='line_number'>121</td>
+              <td class='code_line'>
+                <pre>      jumps.select { |jump| jump.src == location }.size > 0</pre>
+              </td>
+              <td class='hit_number'>8</td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>122</td>
+              <td class='code_line'>
+                <pre>    end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>123</td>
+              <td class='code_line'>
+                <pre>  end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+            <tr class="never" "">
+              <td class='line_number'>124</td>
+              <td class='code_line'>
+                <pre>end</pre>
+              </td>
+              <td class='hit_number'></td>
+            </tr>
+          
+        </table>
+      </div>
+      
+    </div>
+    
+    <p>Generated on: 2012-08-06 19:42:46 -0400</p>
+  </body>
+</html>

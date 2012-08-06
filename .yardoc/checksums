@@ -1,0 +1,8 @@
+lib/checkers.rb ededc387e69f0e2ab69c8f40d79eb01ecfa20013
+lib/checkers/ai.rb 87c0fb69a6b26af19c753c93cfff5aedbdd91483
+lib/checkers/game.rb 1759d606f6fb6f107ff6b543e30b5b2054be7acb
+lib/checkers/jump.rb 01f29f3b699a59291de12dfc05bf27dd41b5279f
+lib/checkers/king.rb 960c1c6f8dd3ba67925405fd4e8e28175b12c3ee
+lib/checkers/move.rb b1faf7b4a0c4a231a1f24bf6b51d1f54928e92e6
+lib/checkers/piece.rb 151b9e572e0b0e8b27011bf2c5b1a97ee08083b5
+lib/checkers/board.rb e88da831a2fd9f2d3cb4fc18c9e865c45bec9288

@@ -1,7 +1,13 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    configatron (2.9.1)
+      yamler (>= 0.1.0)
+    cover_me (1.2.0)
+      configatron
+      hashie
     diff-lcs (1.1.2)
+    hashie (1.2.0)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
       rspec-expectations (~> 2.6.0)
@@ -10,9 +16,11 @@ GEM
     rspec-expectations (2.6.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.6.0)
+    yamler (0.1.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  cover_me
   rspec (~> 2.6.0)

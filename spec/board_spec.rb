@@ -1,4 +1,4 @@
-require File.expand_path('../../lib/checkers', __FILE__)
+require 'spec_helper'
 
 describe Checkers::Board do
   it "should have 32 available cells" do

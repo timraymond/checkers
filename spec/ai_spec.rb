@@ -1,4 +1,4 @@
-require File.expand_path('../../lib/checkers', __FILE__)
+require 'spec_helper'
 
 describe Checkers::AI do
   describe "Evaluation" do
@@ -20,15 +20,6 @@ describe Checkers::AI do
 
       specify { @white.evaluate.should be > 0 }
       specify { @black.evaluate.should be < 0 }
-    end
-  end
-
-  describe "Choice" do
-    context "with a single jump and a double jump available" do
-      subject { @ai.choose.dest }
-      before { @ai = Checkers::AI.new(Checkers::Game.from_text("bbbbbbbbbbbbxwwxxxxxxxwxxxxxxxxx:b")) }
-
-      it { should be == 18 }
     end
   end
 end

@@ -1,4 +1,4 @@
-require File.expand_path('../../lib/checkers', __FILE__)
+require 'spec_helper'
 
 describe Checkers::Game do
   subject { @game }
