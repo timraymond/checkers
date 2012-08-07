@@ -4,7 +4,7 @@ describe Checkers::Move do
 
   before do
     @game = Checkers::Game.new
-    @board = @game.instance_eval { @board }
+    @board = @game.board
   end
 
   subject { @move }

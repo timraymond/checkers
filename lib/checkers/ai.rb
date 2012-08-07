@@ -53,6 +53,7 @@ module Checkers
 
       return alpha
     end
+
     def random_choice
       @engine.options.sample
     end

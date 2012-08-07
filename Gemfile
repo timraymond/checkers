@@ -1,4 +1,4 @@
-source :rubygems
+source 'https://rubygems.org'
 
-gem "rspec", "~> 2.6.0"
-gem "cover_me"
+# Specify your gem's dependencies in checkers.gemspec
+gemspec

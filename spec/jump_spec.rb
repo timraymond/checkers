@@ -31,4 +31,10 @@ describe Checkers::Jump do
     it {should_not be_valid }
     specify { @broken_jump.execute.should be_nil }
   end
+
+  it "reverts moves properly" do
+    expected = @game.board
+    @valid_jump.execute
+    @valid_jump.revert.to_s.should == expected.to_s
+  end
 end

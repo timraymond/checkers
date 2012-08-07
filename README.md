@@ -1,10 +1,29 @@
 # Checkers
 
-This application implements the rules for a checkers game.
+TODO: Write a gem description
 
-## Links:
+## Installation
 
-Definition of Rules:
+Add this line to your application's Gemfile:
 
-* [http://boardgames.about.com/cs/checkersdraughts/ht/play_checkers.htm](http://boardgames.about.com/cs/checkersdraughts/ht/play_checkers.htm)
-* [http://www.jimloy.com/checkers/rules2.htm](http://www.jimloy.com/checkers/rules2.htm)
+    gem 'checkers'
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install checkers
+
+## Usage
+
+TODO: Write usage instructions here
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Added some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
