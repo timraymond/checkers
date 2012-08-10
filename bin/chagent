@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require File.expand_path('../../lib/checkers.rb', __FILE__)
+
+options = {}
+option_parser = OptionParser.new do |opts|
+  opts.on("--[no-]pruning") do |pruning|
+    options[:alpha_beta] = pruning
+  end
+
+  opts.on("-d DEPTH") do |depth|
+    options[:depth] = depth
+  end
+end
+
+option_parser.parse!
+
+game = Checkers::Game.from_text(ARGV.shift)
+ai = Checkers::AI.new(game)
+puts ai.choose

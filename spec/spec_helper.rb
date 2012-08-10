@@ -6,4 +6,10 @@ CoverMe.config do |c|
   c.html_formatter.output_path = File.expand_path('../coverage', __FILE__)
   c.file_pattern =
     /(#{CoverMe.config.project.root}\/lib\/.+\.rb)/i
+
+  c.at_exit = Proc.new {
+    if CoverMe.config.formatter == CoverMe::HtmlFormatter
+      index = File.join(CoverMe.config.html_formatter.output_path, 'index.html')
+    end
+  }
 end

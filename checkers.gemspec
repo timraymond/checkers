@@ -18,4 +18,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "rspec"
   gem.add_development_dependency "cover_me"
   gem.add_development_dependency "guard-rspec"
+  gem.add_development_dependency "guard-cucumber"
+  gem.add_development_dependency "aruba"
+  gem.add_development_dependency "rake"
 end

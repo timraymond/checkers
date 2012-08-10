@@ -22,4 +22,30 @@ describe Checkers::AI do
       specify { @black.evaluate.should be < 0 }
     end
   end
+
+  describe "Choose" do
+    before do
+      @ai = Checkers::AI.new(Checkers::Game.new, alpha_beta: true, depth: 1)
+
+      # Add a mechanism to count the number of leaves generated to @ai
+      class << @ai
+        alias real_evaluation evaluate
+
+        def evaluate(*args)
+          @leaf_counter ||= 0
+          @leaf_counter = @leaf_counter + 1
+          real_evaluation(*args)
+        end
+
+        def leaf_count
+          @leaf_counter || 0
+        end
+      end
+    end
+
+    it "has 7 leaves from the starting position" do
+      @ai.choose
+      @ai.leaf_count.should == 7
+    end
+  end
 end

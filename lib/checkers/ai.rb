@@ -3,7 +3,11 @@ module Checkers
     def initialize(game_state, opts = {})
       @engine = game_state
       @my_color = @engine.current_player
-      @@max_depth = 4
+      @@max_depth = if opts.has_key?(:depth)
+                      opts[:depth]
+                    else
+                      3
+                    end
 
       @@alpha_beta = if opts.has_key?(:alpha_beta)
                        opts[:alpha_beta]
